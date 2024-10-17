@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .product-container {
+            text-align: center;
+            background-color: #545454;
+            padding: 90px;
+            width: 1250px;
+            border-radius: 5px;
+        }
+        .product-image {
+            width: 100px;
+        }
+        .delete-button {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .delete-button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="product-container">
+        <h2>{{ name2 }}</h2>
+        <img src="{{ image }}" alt="{{ name2 }}" class="product-image">
+        <p>Price: {{ price }}</p>
+        <p>Description: {{ description }}</p>
+        <form action="/delete/{{ name }}" method="POST">
+            <button type="submit" class="delete-button">Delete Product</button>
+        </form>
+    </div>
+</body>
+</html>

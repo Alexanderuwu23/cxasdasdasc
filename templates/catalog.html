@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Gaming Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://img.freepik.com/fotos-premium/imagen-abstracta-azul-blanca-fondo-abstracto-blanco-azul_994023-322834.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1728604800&semt=ais_hybrid-rr-similar');
+            background-size: 100%;
+            background-position: center top;
+        }
+        .product-card {
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 325px;
+            height: 550px;
+            transition: transform 0.3s;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+            border: 3px solid #888;
+        }
+        .product-card.show {
+            opacity: 1;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        .product-image {
+            width: 100%;
+            height: 150px;
+            border-radius: 5px;
+            background-color: #545454;
+            object-fit: cover;
+            margin-bottom: 0px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .product-info {
+            flex: 1;
+            overflow: hidden;
+            margin-bottom: 1px;
+            margin-top: 1px;
+        }
+        .product-info p {
+            font-size: 14px;
+            white-space: pre-wrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 150px;
+        }
+        .price-container {
+            background-color: #00aaff;
+            border-radius: 5px;
+            padding: 5px;
+            margin-top: 8px;
+        }
+        .price-container span {
+            color: white;
+        }
+        .quantity-input {
+            width: 60px;
+            padding: 5px;
+            border: 2px solid #888;
+            border-radius: 5px;
+            text-align: center;
+            background-color: #f0f0f0;
+            transition: border-color 0.6s ease;
+            margin-right: 10px; /* Ajustar margen a la izquierda del cuadro de cantidad */
+        }
+        .quantity-input:focus {
+            background-color: white;
+            border-color: #00aaff;
+            outline: none;
+        }
+        .quantity-label {
+            background-color: #00aaff; /* Color de fondo similar al de precio */
+            border-radius: 5px;
+            padding: 5px;
+            margin-top: -1px; /* Ajustar para alineación */
+            color: white;
+            display: inline-block; /* Para que se ajuste al contenido */
+            width: 70px; /* Ancho fijo para que se vea bien */
+            text-align: center; /* Centrar texto */
+        }
+        .seller-container {
+            background-color: #00aaff;
+            border-radius: 5px;
+            padding: 5px;
+            margin-top: -5px;
+            color: white;
+        }
+        .buy-button {
+            background-color: #00aaff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            justify-content: center;
+        }
+        .buy-button:hover {
+            transform: scale(1.1);
+        }
+        .buy-button img {
+            margin-right: 8px;
+            width: 20px;
+            height: 20px;
+        }
+        .search-bar {
+            display: block;
+            width: 80%;
+            margin: 20px auto;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #888;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .search-bar:focus {
+            background-color: white;
+            border-color: #ccc;
+            outline: none;
+        }
+        .suggestions {
+            display: none;
+            width: 80%;
+            margin: 0 auto;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            position: absolute;
+            left: 10%;
+            top: 100%;
+            z-index: 1;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s ease, opacity 0.5s ease;
+        }
+        .suggestions.show {
+            display: block;
+            max-height: 200px;
+            opacity: 1;
+        }
+        .suggestions div {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .suggestions div:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+    <script>
+        function searchProducts() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const products = document.querySelectorAll('.product-card');
+            let delay = 0;
+
+            products.forEach(product => {
+                const productName = product.querySelector('h3').textContent.toLowerCase();
+                if (query === "" || productName.includes(query)) {
+                    product.style.animationDelay = `${delay}s`;
+                    product.classList.add('show');
+                    product.style.display = 'flex'; 
+                    delay += 0.5;
+                } else {
+                    product.style.display = 'none';
+                    product.classList.remove('show');
+                }
+            });
+        }
+
+        function toggleSuggestions(show) {
+            const suggestions = document.querySelector('.suggestions');
+            if (show) {
+                suggestions.classList.add('show');
+            } else {
+                suggestions.classList.remove('show');
+            }
+        }
+
+        function setSearchTerm(term) {
+            const searchInput = document.getElementById('search-input');
+            searchInput.value = term;
+            toggleSuggestions(false);
+            searchProducts();
+        }
+
+        function updatePrice(quantity, price, priceContainer) {
+            const totalPrice = quantity * price;
+            priceContainer.innerText = 'Price: $' + totalPrice.toFixed(2);
+        }
+
+        function redirectToBuy(productName, quantity) {
+            const url = `/buy/${productName}?quantity=${quantity}`;
+            window.location.href = url; // Redirigir a la URL de compra
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('focus', () => toggleSuggestions(true));
+            searchInput.addEventListener('blur', () => setTimeout(() => toggleSuggestions(false), 200));
+            searchInput.addEventListener('input', searchProducts);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    searchProducts();
+                }
+            });
+            const quantityInputs = document.querySelectorAll('.quantity-input');
+            quantityInputs.forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const quantity = e.target.value;
+                    const price = parseFloat(input.dataset.price);
+                    const priceContainer = input.closest('.product-card').querySelector('.price-container span');
+                    updatePrice(quantity, price, priceContainer);
+                });
+            });
+            const buyButtons = document.querySelectorAll('.buy-button');
+            buyButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault(); // Evitar el comportamiento por defecto del enlace
+                    const productName = button.dataset.product;
+                    const quantityInput = button.closest('.product-card').querySelector('.quantity-input');
+                    const quantity = quantityInput.value;
+                    redirectToBuy(productName, quantity); // Llamar a la función de redirección
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div style="position: relative;">
+        <input type="text" id="search-input" class="search-bar" placeholder="Search items...">
+        <div class="suggestions">
+            <div onclick="setSearchTerm('Account')">Account</div>
+            <div onclick="setSearchTerm('Game')">Game</div>
+            <div onclick="setSearchTerm('Discord')">Discord</div>
+            <div onclick="setSearchTerm('Key')">Key</div>
+            <div onclick="setSearchTerm('Roblox')">Roblox</div>
+            <div onclick="setSearchTerm('Lunar')">Lunar</div>
+        </div>
+    </div>
+    <div class="product-list">
+        {% for product in products %}
+            <div class="product-card">
+                <img src="{{ product.image }}" alt="{{ product.name2 }}" class="product-image">
+                <div class="product-info">
+                    <h3>{{ product.name2 }}</h3>
+                    <div class="seller-container">Seller: {{ product.seller }}</div>
+                    <div class="price-container">
+                        <span>Price: ${{ product.price }}</span>
+                    </div>
+                    <p>{{ product.description }}</p>
+                    <div style="display: flex; align-items: center;"> <!-- Alinear input y label -->
+                        <input type="number" class="quantity-input" value="1" min="1" data-price="{{ product.price }}" data-product="{{ product.name }}">
+                        <div class="quantity-label">Quantity</div> <!-- Nuevo cuadro de cantidad -->
+                    </div>
+                </div>
+                <a href="#" class="buy-button" data-product="{{ product.name }}">
+                    <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/250_Paypal_logo-512.png" alt="PayPal Logo">
+                    Buy with PayPal
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

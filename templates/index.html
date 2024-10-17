@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Gaming Shop</title>
+    <meta property="og:title" content="Alex Gaming Shop">
+    <meta property="og:description" content="Tu tienda de juegos favorita">
+    <meta property="og:image" content="URL de la imagen de vista previa">
+    <meta property="og:url" content="URL de tu página">
+    <meta property="og:type" content="website">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://img.freepik.com/fotos-premium/imagen-abstracta-azul-blanca-fondo-abstracto-blanco-azul_994023-322834.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1728604800&semt=ais_hybrid-rr-similar');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center top;
+        }
+
+        .payment-methods {
+            text-align: center;
+            margin-top: 40px;
+            color: #00aaff;
+        }
+
+        .payment-methods img {
+            width: 100px;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+
+        .payment-methods img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    {% with is_seller=is_seller %}
+        {% include 'header.html' %}
+    {% endwith %}
+
+    <div class="payment-methods">
+        <h2>Accepted Payment Methods (VIEW ONLY)</h2>
+        <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/250_Paypal_logo-512.png" alt="PayPal">
+        <img src="https://cdn.pixabay.com/photo/2024/05/04/14/58/logo-8739322_1280.png" alt="Método 2">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Robux_2019_Logo_gold.svg/1883px-Robux_2019_Logo_gold.svg.png" alt="Robux">
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://img.freepik.com/fotos-premium/imagen-abstracta-azul-blanca-fondo-abstracto-blanco-azul_994023-322834.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1728604800&semt=ais_hybrid-rr-similar');
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: center top;
+        }
+
+        .account-container {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <div class="account-container">
+        <h2>Welcome, {{ username }}!</h2>
+        <p>This is your account.</p>
+    </div>
+</body>
+</html>
